@@ -2,6 +2,7 @@ package golang
 
 import (
 	"bufio"
+	"encoding/csv"
 	"fmt"
 	"os"
 )
@@ -22,5 +23,32 @@ func WriteMaptoFile(m []string, filePath string) error {
 	return w.Flush()
 }
 
+//读取csv文件
+type CsvTable struct {
+	FileName string
+	Records  [][]string
+}
 
-//
+//读取csv文件
+func LoadCsvCfg(filename string) *CsvTable {
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	if reader == nil {
+		return nil
+	}
+	records, err := reader.ReadAll()
+	if err != nil {
+		return nil
+	}
+
+	var result = &CsvTable{
+		filename,
+		records,
+	}
+	return result
+}
