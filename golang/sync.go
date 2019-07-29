@@ -1,6 +1,11 @@
-### sync.Once
+package golang
 
-```go
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
 var once sync.Once
 
 func main() {
@@ -24,4 +29,3 @@ func onces() {
 func onced() {
 	fmt.Println("onced")
 }
-```
