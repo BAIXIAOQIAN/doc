@@ -56,7 +56,7 @@ NAT的实现方式有三种，静态转换、动态转换、端口多路复用
 
 ### P2P的NAT研究
 
-####　第一部分：不同NAT实现方法的介绍
+#### 第一部分：不同NAT实现方法的介绍
 
 ```
 - 1.完全圆锥型NAT(Full Cone NAT): 内网主机建立一个UDP socket(LocallIP:LocallPort)第一次使用这个socket给外部主机发送数据时NAT会给其分配一个公网(PublicIP:PublicPort),以后用这个socket向外面任何主机发送数据都将使用
