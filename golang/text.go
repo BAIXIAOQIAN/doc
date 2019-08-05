@@ -8,7 +8,7 @@ import (
 )
 
 //按行写入文件
-func WriteMaptoFile(m []string, filePath string) error {
+func GoWriteMaptoFile(m []string, filePath string) error {
 	f, err := os.Create(filePath)
 	if err != nil {
 		fmt.Printf("create map file error: %v\n", err)
@@ -30,7 +30,7 @@ type CsvTable struct {
 }
 
 //读取csv文件
-func LoadCsvCfg(filename string) *CsvTable {
+func GoLoadCsvCfg(filename string) *CsvTable {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil

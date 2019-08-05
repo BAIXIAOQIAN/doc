@@ -7,7 +7,7 @@ import (
 )
 
 //panic的处理,打印堆栈信息
-func panic() {
+func GoPanic() {
 	defer func() {
 		if err := recover(); err != nil {
 			log.Println(err)

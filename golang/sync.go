@@ -6,9 +6,10 @@ import (
 	"time"
 )
 
+//只执行一次的函数
 var once sync.Once
 
-func main() {
+func GoOnce() {
 
 	for i, v := range make([]string, 10) {
 		once.Do(onces)
