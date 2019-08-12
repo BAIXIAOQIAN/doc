@@ -193,14 +193,14 @@ ServerHello报文:
 
 - 步骤3.服务器继续发送 Certificate 报文，即服务器的数字证书，其中包含服务器的公开密钥
 
-- 步骤4.服务器发送 ServerHelloDone 报文，通知客户端进最初阶段的 SSL 握手协商部分结束
+- 步骤4.服务器发送 ServerHelloDone 报文，通知客户端最初阶段的 SSL 握手协商部分结束
 
 - 步骤5.客户端收到以上所有信息后，发送 ClientKeyExchange 报文作为回应。该报文已使用步骤 3 中的公开密钥加密。
 其中包含一种称为 Pre-master secret 的随机密码串，用于之后的对称秘钥加密通信
 
 - 步骤6.客户端继续发送 ChangeCipherSpec 报文，该报文告诉服务器，在此之后的通信都会采用步骤 5 中的 Pre-master secret 秘钥加密
 
-- 步骤7.客户端发送 Finished 报文。改报文包含连接至今全部报文的整体校验值
+- 步骤7.客户端发送 Finished 报文。该报文包含连接至今全部报文的整体校验值
 
 - 步骤8.服务端对客户端报文校验后，同样发送 ChangeCipherSpec 报文，含义与步骤 6 中的相同
 

@@ -1,6 +1,9 @@
 package golang
 
-import "runtime"
+import (
+	"fmt"
+	"runtime"
+)
 
 //golang性能监控和资源占用情况的上报
 func GoReport() {
@@ -37,4 +40,23 @@ func GoChan() {
 
 	//读通道c，通过通道进行同步等待
 	<-c
+}
+
+//runtime.caller的用法
+/*
+函数的签名如下
+
+func runtime.Caller(skip int) (pc uintptr, file string, line int, ok bool)
+
+runtime.Caller返回当前的goroutine的栈上的函数调用信息，主要有当前的pc值和调用的文件和行号等信息，
+其输入参数skip为要跳过的栈帧数，若为0则表示runtime.Caller的调用者
+*/
+func GoRunTimeCaller() {
+	for skip := 0; ; skip++ {
+		pc, file, line, ok := runtime.Caller(skip)
+		if !ok {
+			break
+		}
+		fmt.Printf("skip = %v, pc = %v, file = %v, line = %v\n", skip, pc, file, line)
+	}
 }
