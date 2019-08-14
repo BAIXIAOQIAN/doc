@@ -425,7 +425,8 @@ CONNECT报文的有效载荷（payload）包含一个或多个以长度为前缀
 ![](./image/mqtt_connack_resp_code.png)
 
 ###### 有效载荷
-**CONNACK报文没有有效载荷**
+
+CONNACK报文没有有效载荷
 
 
 #### PUBLISH-发布消息
@@ -456,6 +457,7 @@ CONNECT报文的有效载荷（payload）包含一个或多个以长度为前缀
 
 服务质量定义:
 ![](./image/mqtt_publish_qos.png)
+
 PUBLISH报文不能将QoS所有的位设置为1。如果服务端或客户端收到QoS所有位都为1的PUBLISH报文，它必须关闭网络连接。
 
 ###### 保留标志 RETAIN
@@ -549,4 +551,78 @@ PUBLISH报文中的主题名不能包含通配符。
 
 如果服务端实现不授权某个客户端发布PUBLISH报文，它没有办法通知那个客户端。它必须按照正常的QoS规则发送一个正面的确认，或者关闭网络连接。
 ```
+
+#### PUBACK-发布确认
+> PUBACK报文是对Qos 1等级的PUBLISH报文的响应
+
+##### 固定报头
+
+![](./image/mqtt_puback_fixed_header.png)
+
+- 剩余长度字段
+
+表示可变报头的长度。对PUBACK报文这个值等于2.
+
+##### 可变报头
+> 包含等待确认的PUBLISH报文的报文标识符
+
+![](./image/mqtt_puback_varable_header.png)
+
+##### 有效载荷
+PUBACK报文没有有效载荷
+
+#### PUBREC-发布收到(Qos 2,第一步)
+> PUBREC报文是对QoS等级2的PUBLISH报文的响应。它是QoS 2等级协议交换的第二个报文
+
+##### 固定报头
+
+![](./image/mqtt_pubrec_fixed_header.png)
+
+- 剩余长度字段
+
+表示可变报头的长度。对PUBREC报文这个值等于2.
+
+##### 可变报头
+> 包含等待确认的PUBLISH报文的报文标识符
+
+![](./image/mqtt_puback_varable_header.png)
+
+##### 有效载荷
+PUBREC报文没有有效载荷
+
+#### PUBREL-发布释放(Qos 2，第二步)
+>PUBREL报文是对PUBREC报文的响应。它是QoS 2等级协议交换的第三个报文
+
+##### 固定报头
+![](./image/mqtt_pubrel_fixed_header.png)
+
+- 剩余长度字段
+表示可变报头的长度。对PUBREL报文这个值等于2.
+
+##### 可变报头
+> 可变报头包含与等待确认的PUBREC报文相同的报文标识符。
+
+![](./image/mqtt_puback_varable_header.png)
+
+##### 有效载荷
+PUBREL报文没有有效载荷
+
+#### PUBCOMP-发布完成(Qos 2,第三步)
+>PUBCOMP报文是对PUBREL报文的响应。它是QoS 2等级协议交换的第四个也是最后一个报文
+
+##### 固定报头
+![](./image/mqtt_pubcomp_fixed_header.png)
+
+- 剩余长度字段
+
+表示可变报头的长度。对PUBCOMP报文这个值等于2。
+
+##### 可变报头
+> 可变报头包含与等待确认的PUBREL报文相同的报文标识符。
+![](./image/mqtt_puback_varable_header.png)
+
+##### 有效载荷
+PUBCOMP报文没有有效载荷
+
+
 
