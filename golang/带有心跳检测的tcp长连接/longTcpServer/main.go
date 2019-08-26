@@ -35,7 +35,7 @@ func main() {
 
 	CMap = make(map[string]*CS)
 
-	listen, err := net.ListenTCP("tcp", &net.TCPAddr{net.ParseIP("127.0.0.1"), 6666, ""})
+	listen, err := net.ListenTCP("tcp", &net.TCPAddr{IP: net.ParseIP("127.0.0.1"), Port: 6666, Zone: "CN"})
 	if err != nil {
 		fmt.Printf("监听端口失败: %v", err.Error())
 		return
@@ -73,6 +73,7 @@ func Server(listen *net.TCPListener) {
 }
 
 func Handler(conn net.Conn) {
+	fmt.Println("Handler")
 	defer conn.Close()
 	data := make([]byte, 128)
 
@@ -113,6 +114,7 @@ func Handler(conn net.Conn) {
 //正常写数据
 //定时检测conn die => goroutine die
 func WHandler(conn net.Conn, C *CS) {
+	fmt.Println("go WHandler")
 	//读取业务Work写入Writech的数据
 	ticker := time.NewTicker(20 * time.Second)
 	for {
@@ -130,6 +132,7 @@ func WHandler(conn net.Conn, C *CS) {
 
 //读客户端数据+心跳检测
 func RHandler(conn net.Conn, C *CS) {
+	fmt.Println("go RHandler")
 	//心跳ack
 	//业务数据写入Writech
 
@@ -170,6 +173,7 @@ func RHandler(conn net.Conn, C *CS) {
 }
 
 func Work(C *CS) {
+	fmt.Println("go Work")
 	time.Sleep(5 * time.Second)
 	C.Writech <- []byte{Req, '#', 'h', 'e', 'l', 'l', 'o'}
 

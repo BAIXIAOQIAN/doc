@@ -48,6 +48,7 @@ func main() {
 }
 
 func Handler(conn *net.TCPConn) {
+	fmt.Println("go Handler")
 	//直到register ok
 	data := make([]byte, 128)
 	for {
@@ -67,6 +68,7 @@ func Handler(conn *net.TCPConn) {
 }
 
 func RHandler(conn *net.TCPConn) {
+	fmt.Println("go RHandler")
 	for {
 		//心跳包，回复ack
 		data := make([]byte, 128)
@@ -90,6 +92,7 @@ func RHandler(conn *net.TCPConn) {
 }
 
 func WHandler(conn net.Conn) {
+	fmt.Println("go WHandler")
 	for {
 		select {
 		case msg := <-Writech:
@@ -101,6 +104,7 @@ func WHandler(conn net.Conn) {
 }
 
 func Work() {
+	fmt.Println("go Work")
 	for {
 		select {
 		case msg := <-Readch:
