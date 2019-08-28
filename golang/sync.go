@@ -54,3 +54,11 @@ func GoPool() {
 
 	println(a, b)
 }
+
+//清空sync.map
+func CleanSyncMap(m *sync.Map) {
+	m.Range(func(key interface{}, value interface{}) bool {
+		m.Delete(key)
+		return true
+	})
+}
